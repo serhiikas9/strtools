@@ -24,3 +24,23 @@ func TestReverse(t *testing.T) {
 		})
 	}
 }
+
+func TestTruncate(t *testing.T) {
+	type input struct {
+		in string
+		l  int
+	}
+	cases := map[input]string{
+		{in: "12345", l: 3}:    "123",
+		{in: "кирилиця", l: 5}: "кирил",
+	}
+
+	for in, expected := range cases {
+		t.Run(in.in, func(t *testing.T) {
+			got := strtools.Truncate(in.in, in.l)
+			if got != expected {
+				t.Errorf("expected: %q, got: %q", expected, got)
+			}
+		})
+	}
+}
